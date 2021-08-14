@@ -18,7 +18,7 @@ public class Menu extends Screen{
 
     @Override
     public void draw(float delta) {
-
+        this.game.font.draw(this.game.batch, "Hola", 100, 100);
     }
 
 }
