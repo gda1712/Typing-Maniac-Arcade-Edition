@@ -19,7 +19,7 @@ public class TypingManiacArcade extends Game {
 
 		this.font = new BitmapFont();
 		this.batch = new SpriteBatch();
-		this.setScreen(new Menu(this));
+		this.setScreen(new com.mygdx.maniac.screens.game.Game(this));
 	}
 
 	@Override
