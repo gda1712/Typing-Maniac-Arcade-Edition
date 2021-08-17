@@ -2,11 +2,13 @@ package com.mygdx.maniac.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
+import com.mygdx.maniac.screens.game.assets.Assets;
 import com.mygdx.maniac.screens.game.objects.Floor;
 import com.mygdx.maniac.screens.game.objects.Powers;
 import com.mygdx.maniac.screens.game.objects.Word;
@@ -18,6 +20,8 @@ import java.util.ArrayList;
 import javax.swing.Timer;
 
 public class Game extends Screen implements ContactListener, ActionListener {
+
+    private Sprite background;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -59,6 +63,12 @@ public class Game extends Screen implements ContactListener, ActionListener {
         this.writer = new Writer();
         this.level = new Levels(Levels.LEVEL_0);
         this.words = new ArrayList<Word>();
+
+        // Inicializate the sprite
+        this.background = Assets.getSprite(Assets.MAPA_ILUMINADO);
+        this.background.setPosition(0, 0);
+        this.background.setSize(Screen.SCREEN_WIDTH, Screen.SCREEN_HEIGHT);
+        System.out.println(Screen.SCREEN_WIDTH);
 
         this.wordsOut = 0;
         this.wordToDelete = DEFAULT_WORLD_TO_DELETE;
@@ -162,6 +172,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
     @Override
     public void draw(float delta) {
 
+        this.background.draw(this.game.batch);
         // Draw the world
         for(int i = 0; i < this.words.size(); i++) {
             this.words.get(i).drawText(this.game.font, this.game.batch);
