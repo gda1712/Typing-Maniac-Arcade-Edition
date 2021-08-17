@@ -10,6 +10,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.mygdx.maniac.screens.Screen;
 import com.mygdx.maniac.screens.game.Game;
 
 public class Word {
@@ -23,11 +24,10 @@ public class Word {
 
     public Word(String word, World world) {
         // Configurate box2d
-        super();
 
         this.bodyDef = new BodyDef();
         this.bodyDef.type = BodyDef.BodyType.DynamicBody;
-        this.bodyDef.position.set(2, 5);
+        this.bodyDef.position.set((float)Math.random() * (Screen.WORD_WIDTH - 2.f), Screen.WORD_HEIGHT);
         this.bodyDef.fixedRotation = true;
 
         this.world = world;
@@ -43,10 +43,6 @@ public class Word {
 
     }
 
-    public BodyDef getBodyDef() {
-        return bodyDef;
-    }
-
     public void drawText(BitmapFont font, Batch batch) {
         // Draw the word in the batch
         //this.shape
@@ -54,7 +50,15 @@ public class Word {
 
     }
 
+    public BodyDef getBodyDef() {
+        return bodyDef;
+    }
+
     public String getWord() {
         return word;
+    }
+
+    public Body getBody() {
+        return body;
     }
 }

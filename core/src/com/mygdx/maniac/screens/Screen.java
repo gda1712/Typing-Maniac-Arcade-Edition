@@ -1,6 +1,7 @@
 package com.mygdx.maniac.screens;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -35,6 +36,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
         this.cameraBox2d.position.set(WORD_WIDTH / 2, WORD_HEIGHT / 2, 0);
 
         Gdx.input.setInputProcessor(this);
+
     }
 
     public void update(){}

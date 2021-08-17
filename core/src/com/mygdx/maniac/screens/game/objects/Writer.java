@@ -19,8 +19,7 @@ public class Writer{
         // this method get the key press and write the word
 
         for(int i = Input.Keys.A; i <= Input.Keys.Z; i++ ) {
-            if(Gdx.input.isKeyPressed(i)){
-
+            if(Gdx.input.isKeyJustPressed(i)){
                 word += Input.Keys.toString(i);
             }
         }
