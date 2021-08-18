@@ -5,6 +5,8 @@ import com.badlogic.gdx.files.FileHandle;
 import com.badlogic.gdx.utils.*;
 import com.mygdx.maniac.screens.datosUsuarios.datos.Iten;
 
+import java.util.ArrayList;
+
 public class DatosUsuario {
     private JsonReader json;
     private static JsonValue base;
@@ -139,6 +141,57 @@ public class DatosUsuario {
 //            return "";
 //        }
 //    }
+
+    public void setNivelAMedias(String nombre, int nivelDejadoAMedias, ArrayList <String> datosNivelAMedias, ArrayList <String> palabrasDejadasAMedias) {
+
+        try {
+            Json json = new Json();
+            Iten iten = new Iten(nombre);
+            String cad = json.prettyPrint(iten);
+            System.out.println(cad);
+            String elJson="[";
+            for (int i=0; i<this.base.size(); i++){
+                if(elJson!="["){
+                    //elJson=elJson+","+this.base.get(i).toString();
+                    elJson += "[";
+                    for(int j = 0; i < 5; i++) {
+                        if(i == 2) {
+                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                            elJson = elJson + ": " + nivelDejadoAMedias + "";
+                        }
+                        if(i == 3 || i == 4) {
+
+                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                            for(int k = 0; k < datosNivelAMedias.size(); k++) {
+                                elJson = elJson + datosNivelAMedias.get(k) + "-";
+                            }
+                        }
+                        else {
+                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                            elJson = elJson + ": " + this.base.get(i).get(j).toString().split(": ")[1];
+                        }
+                    }
+                    elJson += "]";
+                }else{
+                    elJson=elJson+this.base.get(i).toString();
+                }
+            }
+            if(elJson!="["){
+                elJson=elJson+","+cad+"]";
+            }else{
+                elJson=elJson+cad+"]";
+            }
+            FileHandle file= Gdx.files.local("salida.json");
+            Gdx.files.local("vacio.json").copyTo(file);
+            file.writeString(elJson,true);
+            this.base = this.json.parse(Gdx.files.local("salida.json"));
+            //System.out.println("nombre1:"+this.base.get(0).get(0).toString().split(":")[1]);
+            //System.out.println(file);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
 
 
