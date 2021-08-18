@@ -399,7 +399,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
         this.writer.drawText(this.game.batch);
         this.game.batch.setProjectionMatrix(cameraBox2d.combined);
-        this.b2dr.render(this.world, this.cameraBox2d.combined);
+        //this.b2dr.render(this.world, this.cameraBox2d.combined);
 
     }
 
