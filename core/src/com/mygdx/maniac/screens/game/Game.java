@@ -176,6 +176,22 @@ public class Game extends Screen implements ContactListener, ActionListener {
                 this.score -= 100;
         }
 
+        // Exit the game
+        if(Gdx.input.isKeyJustPressed(Input.Keys.E) && this.gameStop == true) {
+            ArrayList <String> datos =  new ArrayList<String>();
+            datos.add(Integer.toString(this.score));
+            datos.add( Integer.toString(this.wrongWords));
+            datos.add( Integer.toString(this.rightWords));
+
+            ArrayList <String> w = new ArrayList<String>();
+
+            for(int i = 0; i < this.words.size(); i++) {
+                w.add(this.words.get(i).getWord());
+            }
+            this.game.datos.setNivelAMedias(this.game.jugadorOn, this.level.getActualLevel(), datos, w);
+            this.game.setScreen(new Niveles(this.game));
+        }
+
         // If the user prees esc pause
         if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
 
@@ -189,6 +205,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
                 this.gameStop = true;
                 this.game.pMusica.pause();
             }
+
             else if(this.gameStop == true) {
                 this.world.setGravity(new Vector2(0, DEFAULT_GRAVITY));
 
@@ -236,11 +253,11 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
         }
         // Verify the incorrect words
-        if(this.wrongWords > this.level.getNumberOfWords() * 3 / 4) {
-            System.exit(0);
+        if(this.wrongWords > this.level.getNumberOfWords() / 2) {
+            this.game.setScreen(new GameFinished(this.game, this.wrongWords, this.rightWords, this.score, false));
         }
         else if(this.wrongWords + this.rightWords == this.level.getNumberOfWords()) {
-            this.game.setScreen(new GameFinished(this.game, this.wrongWords, this.rightWords, this.score));
+            this.game.setScreen(new GameFinished(this.game, this.wrongWords, this.rightWords, this.score, true));
         }
     }
 
@@ -378,7 +395,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
             this.words.add(new Word(wordsAux[MathUtils.random(0, this.words.size())], this.world));
 
             if(MathUtils.randomBoolean(.1f)) {
-                this.powers.add(new Powers(MathUtils.random(Powers.FROZEN, Powers.BLOW), this.world, this.words, this.timer));
+                this.powers.add(new Powers(MathUtils.random(Powers.FROZEN, Powers.RANDOM), this.world, this.words, this.timer));
             }
         }
     }

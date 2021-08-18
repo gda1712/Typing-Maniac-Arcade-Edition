@@ -38,7 +38,7 @@ public class Levels {
             this.departureTime = 1000;
             this.numberOfWords = 30;
         }
-        else if(this.actualLevel == LEVEL_1) {
+        else if(this.actualLevel == LEVEL_2) {
             this.departureTime = 800;
             this.numberOfWords = 40;
         }
@@ -66,7 +66,7 @@ public class Levels {
         }
 
         if(this.actualLevel == LEVEL_1) {
-            String palabras[] = new String[20];
+            String palabras[] = new String[30];
 
             for (int i = 0; i < palabras.length; i++) {
                 palabras[i] = this.base.get("equalsTo5").getString((int)(Math.random() * this.base.get("equalsTo5").size) );
@@ -77,7 +77,7 @@ public class Levels {
         }
 
         if(this.actualLevel == LEVEL_2) {
-            String palabras[] = new String[20];
+            String palabras[] = new String[40];
 
             for (int i = 0; i < palabras.length; i++) {
                 palabras[i] = this.base.get("equalsTo6").getString((int)(Math.random() * this.base.get("equalsTo6").size) );
@@ -89,4 +89,7 @@ public class Levels {
         return new String[0];
     }
 
+    public int getActualLevel() {
+        return actualLevel;
+    }
 }

@@ -25,6 +25,7 @@ public class Powers implements ActionListener {
     public final static int FROZEN = 0;
     public final static int SLOW = 1;
     public final static int BLOW = 2;
+    public final static int RANDOM = 3;
 
     private int power;
     private String powerName;
@@ -57,6 +58,8 @@ public class Powers implements ActionListener {
             this.powerName = "SLOW";
         else if(this.power == BLOW)
             this.powerName = "BLOW";
+        else if(this.power == RANDOM)
+            this.powerName = "RANDOM";
 
         // Create the body
         this.bodyDef = new BodyDef();
@@ -77,6 +80,16 @@ public class Powers implements ActionListener {
     public void activate() {
         // Activate hte power
         //Timer
+        if(this.power == RANDOM){
+            this.power = MathUtils.random(0, 2);
+            if(this.power == FROZEN)
+                this.powerName = "FROZEN";
+            else if(this.power == SLOW)
+                this.powerName = "SLOW";
+            else if(this.power == BLOW)
+                this.powerName = "BLOW";
+        }
+
         if(this.power == FROZEN) {
             // Sound
             this.powerSound = Assets.getSound(Assets.FREEZE);

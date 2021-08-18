@@ -34,6 +34,7 @@ public class TypingManiacArcade extends Game {
 	public TextField nombre;
 	public int jugadorOn;
 
+
 	public Music pMusica;
 
 	public DatosUsuario datos;

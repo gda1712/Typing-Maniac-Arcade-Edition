@@ -1,7 +1,12 @@
-[{
-nombre: Nombre
+[{nombre: Nombre
+nivelActual: 3
+nivelDejadoAMedias: 1
+datosNivelAMedias: vacio
+palabrasDejadasAMedias: vacio
+},{
+nombre: Nombress
 nivelActual: 1
-nivelDejadoAMedias: 2
+nivelDejadoAMedias: 1
 datosNivelAMedias: vacio
 palabrasDejadasAMedias: vacio
 }]

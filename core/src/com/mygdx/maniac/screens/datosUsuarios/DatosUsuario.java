@@ -69,7 +69,7 @@ public class DatosUsuario {
         }
     }
 
-    private String getNombre(int i) {
+    public String getNombre(int i) {
         if(this.base.get(i)!=null){
             String[] split = this.base.get(i).get(0).toString().split(":");
             if(split==null){
@@ -142,44 +142,55 @@ public class DatosUsuario {
 //        }
 //    }
 
-    public void setNivelAMedias(String nombre, int nivelDejadoAMedias, ArrayList <String> datosNivelAMedias, ArrayList <String> palabrasDejadasAMedias) {
+    public void setNivelAMedias(int numJugador, int nivelDejadoAMedias, ArrayList <String> datosNivelAMedias, ArrayList <String> palabrasDejadasAMedias) {
 
         try {
             Json json = new Json();
-            Iten iten = new Iten(nombre);
-            String cad = json.prettyPrint(iten);
-            System.out.println(cad);
+
+            System.out.println("Dentro");
             String elJson="[";
             for (int i=0; i<this.base.size(); i++){
-                if(elJson!="["){
+
+                if(elJson=="["){
+
                     //elJson=elJson+","+this.base.get(i).toString();
-                    elJson += "[";
-                    for(int j = 0; i < 5; i++) {
+                    elJson += ",{";
+                    for(int j = 0; j < 5; j++) {
                         if(i == 2) {
                             elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
-                            elJson = elJson + ": " + nivelDejadoAMedias + "";
+                            elJson = elJson + ": " + nivelDejadoAMedias + "\n";
                         }
-                        if(i == 3 || i == 4) {
-
+                        if(i == 3) {
+                            System.out.println("Dentro del condifcional");
                             elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
                             for(int k = 0; k < datosNivelAMedias.size(); k++) {
-                                elJson = elJson + datosNivelAMedias.get(k) + "-";
+                                elJson = elJson + "Hols";
                             }
+                            elJson += "\n";
+                        }
+                        if(i == 4) {
+
+                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                            for(int k = 0; k < palabrasDejadasAMedias.size(); k++) {
+                                elJson = elJson + palabrasDejadasAMedias.get(k) + "-";
+                            }
+                            elJson += "\n";
                         }
                         else {
                             elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
                             elJson = elJson + ": " + this.base.get(i).get(j).toString().split(": ")[1];
+                            elJson += "\n";
                         }
                     }
-                    elJson += "]";
+                    elJson += "}";
                 }else{
                     elJson=elJson+this.base.get(i).toString();
                 }
             }
             if(elJson!="["){
-                elJson=elJson+","+cad+"]";
+                elJson=elJson+"]";
             }else{
-                elJson=elJson+cad+"]";
+                elJson=elJson+"]";
             }
             FileHandle file= Gdx.files.local("salida.json");
             Gdx.files.local("vacio.json").copyTo(file);

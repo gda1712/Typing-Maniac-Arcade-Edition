@@ -21,11 +21,13 @@ public class GameFinished extends Screen {
 
     private BitmapFont fontStatistics;
 
+    String textTitle;
+
     private int wrongWords;
     private int rightWords;
     private int score;
 
-    public GameFinished(TypingManiacArcade game, int wrongWords, int rightWords, int score) {
+    public GameFinished(TypingManiacArcade game, int wrongWords, int rightWords, int score, boolean win) {
         // This class show the score of the game
         super(game);
 
@@ -33,13 +35,26 @@ public class GameFinished extends Screen {
         this.rightWords = rightWords;
         this.score = score;
 
+        if(win == true){
+            this.textTitle = "NIVEL COMPLETADO";
+            this.background = Assets.getSprite(Assets.MAPA_3);
+            this.background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+            this.background.setPosition(0, 0);
+        }
+
+        else{
+            this.textTitle = "NIVEL PERDIDO";
+            this.background = Assets.getSprite(Assets.MAPA_2);
+            this.background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
+            this.background.setPosition(0, 0);
+        }
+
+
         this.pergamino = Assets.getSprite(Assets.PERGAMINO);
         this.pergamino.setSize(300, 400);
         this.pergamino.setPosition((SCREEN_WIDTH / 2) - 400, (SCREEN_HEIGHT / 2.f) - this.pergamino.getHeight() / 2.f);
 
-        this.background = Assets.getSprite(Assets.MAPA_3);
-        this.background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.background.setPosition(0, 0);
+
 
         this.pressEnter = Assets.getSprite(Assets.PRESS_ENTER);
         this.pressEnter.setSize(200, 20);
@@ -61,11 +76,11 @@ public class GameFinished extends Screen {
         this.background.draw(this.game.batch);
         this.pergamino.draw(this.game.batch);
 
-        this.fontTitle.draw(this.game.batch, "LEVEL COMPLETE", this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 50);
+        this.fontTitle.draw(this.game.batch, this.textTitle, this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 50);
 
         this.fontStatistics.draw(this.game.batch, "Score: " + this.score,this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 100);
-        this.fontStatistics.draw(this.game.batch, "Wrong words: " + this.wrongWords,this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 150);
-        this.fontStatistics.draw(this.game.batch, "Right words: " + this.rightWords,this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 200);
+        this.fontStatistics.draw(this.game.batch, "P. Error: " + this.wrongWords,this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 150);
+        this.fontStatistics.draw(this.game.batch, "P. Correctas: " + this.rightWords,this.pergamino.getX() + 55, (this.pergamino.getY() + this.pergamino.getHeight()) - 200);
 
         this.pressEnter.draw(this.game.batch);
     }

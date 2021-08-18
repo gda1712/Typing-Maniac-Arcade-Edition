@@ -30,10 +30,12 @@ public class Menu extends Screen{
             public void clicked(InputEvent event, float x, float y) {
                 if(game.musica.getText().length()==3){
                     game.musica.setText("No");
+                    game.pMusica.pause();
                     //game.datos.setNombre3(1,"hola");
                     //System.out.println(game.datos.getJsonReader());
                 }else{
                     game.musica.setText("Yes");
+                    game.pMusica.play();
                 }
             }
         });
