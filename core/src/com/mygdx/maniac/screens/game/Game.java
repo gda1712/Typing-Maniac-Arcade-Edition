@@ -271,7 +271,9 @@ public class Game extends Screen implements ContactListener, ActionListener {
         // pause
         if(this.gameStop == true) {
             this.fontPause.draw(this.game.batch, "PAUSA", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-            this.saveAndExit.draw(this.game.batch, 1);
+            this.saveAndExit.draw(this.game.batch, 1
+
+            );
             game.stage2.addActor(this.saveAndExit);
         }
 
