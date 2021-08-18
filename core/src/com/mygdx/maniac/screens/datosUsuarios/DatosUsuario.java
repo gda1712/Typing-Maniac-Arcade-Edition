@@ -41,7 +41,7 @@ public class DatosUsuario {
             Json json = new Json();
             Iten iten = new Iten(nombre);
             String cad = json.prettyPrint(iten);
-
+            System.out.println(cad);
             String elJson="[";
             for (int i=0; i<this.base.size(); i++){
                 if(elJson!="["){
@@ -112,6 +112,33 @@ public class DatosUsuario {
     public int getNivelActualJ3() {
         return getNivelActual(2);
     }
+
+    public Boolean getNivelDejadoAMedias(int jugadorOn) {
+        if(this.base.get(jugadorOn-1)!=null){
+            String[] split = this.base.get(jugadorOn-1).get(2).toString().split(": ");
+            if(split==null){
+                return false;
+            }else{
+                if(Integer.parseInt(split[1])==1){
+                    return false;
+                }else{
+                    return true;
+                }
+            }
+        }else{
+            return false;
+        }
+    }
+//    public int getNivelDejadoAMedias() {
+//        return 1;
+//    }
+//    public String getJDatosNivelAMedias() {
+//        if(this.base!=null){
+//            return this.base.toString();
+//        }else{
+//            return "";
+//        }
+//    }
 }
 
 
