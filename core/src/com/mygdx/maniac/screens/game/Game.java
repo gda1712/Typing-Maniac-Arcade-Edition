@@ -67,7 +67,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
     private ArrayList <Powers> powers;
 
-    public Game(final TypingManiacArcade game) {
+    public Game(final TypingManiacArcade game, int nvl) {
 
         super(game);
 
@@ -76,7 +76,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
         this.b2dr = new Box2DDebugRenderer();
 
         this.writer = new Writer();
-        this.level = new Levels(Levels.LEVEL_0);
+        this.level = new Levels(nvl);
         this.words = new ArrayList<Word>();
 
         this.fontWords = new BitmapFont();
@@ -220,9 +220,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
     @Override
     public void draw(float delta) {
-<<<<<<< HEAD
        // this.game.font.draw(this.game.batch, "Hola mundo", 200, 200);
-=======
 
         this.background.draw(this.game.batch);
 
@@ -260,14 +258,12 @@ public class Game extends Screen implements ContactListener, ActionListener {
         super.dispose();
         this.world.dispose();
         this.b2dr.dispose();
->>>>>>> Gabriel
     }
 
 
 
     //-------------------------------------------INPUT METHODS----------------------------
-    public void update(float delta) {
-    }
+
     @Override
     public boolean keyDown(int keycode) {
         this.writer.update();

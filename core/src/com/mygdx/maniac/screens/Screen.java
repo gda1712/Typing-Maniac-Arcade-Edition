@@ -11,13 +11,10 @@ import com.mygdx.maniac.TypingManiacArcade;
 public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Screen {
 
     /* Father class, in this class i declare the scheme to the screens*/
-<<<<<<< HEAD
-    public static final int SCREEN_WIDTH = 1280;
-    public static final int SCREEN_HEIGHT = 512;
-=======
+
     public static final int SCREEN_WIDTH = Gdx.graphics.getWidth();
     public static final int SCREEN_HEIGHT = Gdx.graphics.getHeight();
->>>>>>> Gabriel
+
 
     public static final float WORD_WIDTH = Gdx.graphics.getWidth() / 100.f;
     public static final float WORD_HEIGHT = Gdx.graphics.getHeight() / 100.f;
@@ -31,12 +28,6 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
         this.game = game;
 
-<<<<<<< HEAD
-        this.camera = new OrthographicCamera();
-        this.camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
-        this.camera.position.set(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0);
-        this.camera.update();
-=======
         this.cameraUI = new OrthographicCamera();
         this.cameraUI.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
         this.cameraUI.position.set(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2, 0);
@@ -45,12 +36,9 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
         this.cameraBox2d.setToOrtho(false, WORD_WIDTH, WORD_HEIGHT);
         this.cameraBox2d.position.set(WORD_WIDTH / 2, WORD_HEIGHT / 2, 0);
 
->>>>>>> Gabriel
         Gdx.input.setInputProcessor(this);
 
     }
-
-    public void update(float delta){}
 
     //-------------------------------------SCREEN METHODS------------------------------
     @Override
@@ -65,14 +53,10 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
         // Clean screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-<<<<<<< HEAD
-        this.update(delta);
-        this.camera.update();
-=======
 
         this.cameraBox2d.update();
         this.cameraUI.update();
->>>>>>> Gabriel
+
 
         // Projection camera in screen
         this.game.batch.setProjectionMatrix(cameraUI.combined);

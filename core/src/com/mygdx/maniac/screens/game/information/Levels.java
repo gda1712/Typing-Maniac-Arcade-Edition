@@ -38,6 +38,10 @@ public class Levels {
             this.departureTime = 1000;
             this.numberOfWords = 30;
         }
+        else if(this.actualLevel == LEVEL_1) {
+            this.departureTime = 800;
+            this.numberOfWords = 40;
+        }
     }
 
     public int getDepartureTime() {
@@ -55,6 +59,28 @@ public class Levels {
 
             for (int i = 0; i < palabras.length; i++) {
                 palabras[i] = this.base.get("lessThanOrEqualsTo4").getString((int)(Math.random() * this.base.get("lessThanOrEqualsTo4").size) );
+
+            }
+            System.out.println(palabras);
+            return palabras;
+        }
+
+        if(this.actualLevel == LEVEL_1) {
+            String palabras[] = new String[20];
+
+            for (int i = 0; i < palabras.length; i++) {
+                palabras[i] = this.base.get("equalsTo5").getString((int)(Math.random() * this.base.get("lessThanOrEqualsTo4").size) );
+
+            }
+            System.out.println(palabras);
+            return palabras;
+        }
+
+        if(this.actualLevel == LEVEL_2) {
+            String palabras[] = new String[20];
+
+            for (int i = 0; i < palabras.length; i++) {
+                palabras[i] = this.base.get("equalsTo6").getString((int)(Math.random() * this.base.get("lessThanOrEqualsTo4").size) );
 
             }
             System.out.println(palabras);

@@ -3,12 +3,7 @@ package com.mygdx.maniac.screens.menu;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.OrthographicCamera;
-import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
-import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
@@ -104,8 +99,8 @@ public class Menu extends Screen{
         game.stage2.draw();
         // ------------------------------------------------------ //
         // -------------------- opciones texto--------------------- //
-        this.game.opcines.draw(this.game.batch, "Musica:", this.game.width-265,120);
-        this.game.opcines.setColor(Color.WHITE);
+        this.game.opciones.draw(this.game.batch, "Musica:", this.game.width-265,120);
+        this.game.opciones.setColor(Color.WHITE);
     }
     public void update(float delta) {
         game.stage.act(delta);

@@ -8,6 +8,8 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
 import com.mygdx.maniac.screens.game.assets.Assets;
+import com.mygdx.maniac.screens.niveles.Niveles;
+import com.mygdx.maniac.screens.preIngreso.PreIngreso;
 
 public class GameFinished extends Screen {
 
@@ -72,7 +74,7 @@ public class GameFinished extends Screen {
         // Update
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)){
-            this.game.setScreen(new Game(game));
+            this.game.setScreen(new Niveles(this.game));
         }
     }
 }

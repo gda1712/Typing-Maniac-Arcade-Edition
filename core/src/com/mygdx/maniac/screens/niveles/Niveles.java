@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
+import com.mygdx.maniac.screens.game.Game;
+import com.mygdx.maniac.screens.game.information.Levels;
 
 public class Niveles extends Screen {
 
@@ -17,21 +19,21 @@ public class Niveles extends Screen {
         this.game.nivel1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //System.out.println("game.datos.getNombre2()");
+                game.setScreen(new Game(game, Levels.LEVEL_0));
             }
         });
 
         this.game.nivel2.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new Niveles(game));
+                game.setScreen(new Game(game, Levels.LEVEL_1));
             }
         });
 
         this.game.nivel3.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                //game.setScreen(new Niveles(game));
+                game.setScreen(new Game(game, Levels.LEVEL_2));
             }
         });
     }
