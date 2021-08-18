@@ -1,19 +1,12 @@
-[{
-nombre: Nombre
-nivelActual: 1
-nivelDejadoAMedias: 2
-datosNivelAMedias: hola-guin-jojo
-palabrasDejadasAMedias: jjijiji-tutu-ppp
-},{
-nombre: Jowcnejnc ee
+[,{nombre: Pepe
 nivelActual: 1
 nivelDejadoAMedias: 1
 datosNivelAMedias: vacio
 palabrasDejadasAMedias: vacio
-},{
-nombre: Nombrenesen s es
+}{
+nombre: San
 nivelActual: 1
-nivelDejadoAMedias: 2
-datosNivelAMedias: hola-guin-jojo
-palabrasDejadasAMedias: jjijiji-tutu-ppp
+nivelDejadoAMedias: 1
+datosNivelAMedias: vacio
+palabrasDejadasAMedias: vacio
 }]

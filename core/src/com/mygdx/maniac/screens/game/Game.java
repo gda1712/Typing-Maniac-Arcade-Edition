@@ -74,6 +74,75 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
     private ArrayList <Powers> powers;
 
+    public Game(final TypingManiacArcade game, int nvl, int wrongWords, int rightWords, int score, String words,boolean isLevelStoped) {
+        super(game);
+
+
+
+        // Create the world
+        this.world = new World(new Vector2(0, DEFAULT_GRAVITY), false);
+        this.b2dr = new Box2DDebugRenderer();
+
+        this.writer = new Writer();
+        this.level = new Levels(nvl);
+        this.words = new ArrayList<Word>();
+
+        this.gameStop = false;
+        this.fontWords = new BitmapFont();
+        this.fontPause = new BitmapFont();
+        this.fontPause.setColor(Color.BLACK);
+        this.fontPause.getData().setScale(2.5f, 2.5f);
+
+        this.saveAndExit = new TextButton("Guardar y salir", this.game.skin);
+        this.saveAndExit.setPosition(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 90);
+
+        this.saveAndExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                game.setScreen(new Niveles(game));
+            }
+        });
+
+        // Inicializate the sprite
+        this.background = Assets.getSprite(Assets.MAPA_1);
+        this.background.setPosition(0, 0);
+        this.background.setSize(Screen.SCREEN_WIDTH, Screen.SCREEN_HEIGHT);
+
+        this.bookStand = Assets.getSprite(Assets.ESTANTERIA);
+        this.bookStand.setPosition(this.SCREEN_WIDTH - 170, 182);
+        this.bookStand.setSize( 140, 100);
+
+        this.wordsOut = 0;
+        this.wordToDelete = DEFAULT_WORLD_TO_DELETE;
+
+        // Set the initial values
+        this.wrongWords = wrongWords;
+        this.rightWords = rightWords;
+        this.score = score;
+        this.animationsError = new ArrayList<Error>();
+
+        // Timer animation
+        this.stateTime = 0.f;
+
+        // Inicializate the floor
+        this.wordsFloor = new Floor(Floor.WORDS_FLOOR, this.world);
+        this.powerFloor = new Floor(Floor.POWERS_FLOOR, this.world);
+
+        // Inicializate the words
+        this.timer = new Timer(this.level.getDepartureTime(), this);
+
+        // Inicializate the powers
+        this.powers = new ArrayList<>();
+
+        // Inicializate the contact
+        this.world.setContactListener(this);
+
+        this.errorSound = Assets.getSound(Assets.ERROR);
+
+        this.timer.start();
+    }
+
     public Game(final TypingManiacArcade game, int nvl) {
 
         super(game);
@@ -178,18 +247,30 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
         // Exit the game
         if(Gdx.input.isKeyJustPressed(Input.Keys.E) && this.gameStop == true) {
-            ArrayList <String> datos =  new ArrayList<String>();
-            datos.add(Integer.toString(this.score));
-            datos.add( Integer.toString(this.wrongWords));
-            datos.add( Integer.toString(this.rightWords));
+             String datosNvl =  new String();
+             datosNvl = Integer.toString(this.score) + "-" + Integer.toString(this.wrongWords) + "-" + Integer.toString(this.rightWords);
 
-            ArrayList <String> w = new ArrayList<String>();
+
+            String w = new String();
 
             for(int i = 0; i < this.words.size(); i++) {
-                w.add(this.words.get(i).getWord());
+                w += this.words.get(i).getWord();
+                if(i < this.words.size() - 1)
+                w += "-";
             }
-          //  this.game.datos.setNivelAMedias(this.game.jugadorOn, this.level.getActualLevel(), datos, w);
-            this.game.setScreen(new Niveles(this.game));
+            if(this.game.jugadorOn == 1) {
+                this.game.datos.setNivelAMedias2(this.game.jugadorOn, this.game.datos.getNivelActualJ1(), this.level.getActualLevel(), datosNvl, w);
+                this.game.setScreen(new Niveles(this.game));
+            }
+            if(this.game.jugadorOn == 2) {
+                this.game.datos.setNivelAMedias2(this.game.jugadorOn, this.game.datos.getNivelActualJ2(), this.level.getActualLevel(), datosNvl, w);
+                this.game.setScreen(new Niveles(this.game));
+            }
+            if(this.game.jugadorOn == 3) {
+                this.game.datos.setNivelAMedias2(this.game.jugadorOn, this.game.datos.getNivelActualJ3(), this.level.getActualLevel(), datosNvl, w);
+                this.game.setScreen(new Niveles(this.game));
+            }
+
         }
 
         // If the user prees esc pause

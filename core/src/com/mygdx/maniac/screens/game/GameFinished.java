@@ -40,6 +40,16 @@ public class GameFinished extends Screen {
             this.background = Assets.getSprite(Assets.MAPA_3);
             this.background.setSize(SCREEN_WIDTH, SCREEN_HEIGHT);
             this.background.setPosition(0, 0);
+            if(this.game.jugadorOn == 1) {
+                this.game.datos.setNivel(this.game.jugadorOn, this.game.datos.getNivelActualJ1());
+            }
+            if(this.game.jugadorOn == 2) {
+                this.game.datos.setNivel(this.game.jugadorOn, this.game.datos.getNivelActualJ2());
+            }
+            if(this.game.jugadorOn == 3) {
+                this.game.datos.setNivel(this.game.jugadorOn, this.game.datos.getNivelActualJ3());
+            }
+
         }
 
         else{
