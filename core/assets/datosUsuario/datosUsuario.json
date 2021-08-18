@@ -5,6 +5,11 @@
   },
   {
     "Nombre": "Eduardo Perez",
-    "NivelesSuperados": 2
+    "NivelesSuperados": 2,
+    "Score": [
+      "1100",
+      "2200"
+    ]
+
   }
 ]
