@@ -9,12 +9,11 @@ import com.mygdx.maniac.TypingManiacArcade;
 public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Screen {
 
     /* Father class, in this class i declare the scheme to the screens*/
-    public static final int SCREEN_WIDTH = 800;
-    public static final int SCREEN_HEIGHT = 600;
+    public static final int SCREEN_WIDTH = 1280;
+    public static final int SCREEN_HEIGHT = 512;
 
     public static final float WORD_WIDTH = 8.f;
     public static final float WORD_HEIGHT = 6.f;
-
 
     protected TypingManiacArcade game;
 
@@ -27,7 +26,8 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
         this.camera = new OrthographicCamera();
         this.camera.setToOrtho(false, SCREEN_WIDTH, SCREEN_HEIGHT);
-
+        this.camera.position.set(SCREEN_WIDTH/2,SCREEN_HEIGHT/2,0);
+        this.camera.update();
         Gdx.input.setInputProcessor(this);
     }
 
@@ -43,7 +43,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
         // Clean screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-
+        this.update(delta);
         this.camera.update();
 
         // Projection camera in screen
@@ -83,5 +83,6 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
     }
 
     public abstract void draw(float delta);
+    public abstract void update(float delta);
 
 }

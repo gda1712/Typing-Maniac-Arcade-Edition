@@ -15,11 +15,12 @@ public class Game extends Screen {
 
     @Override
     public void draw(float delta) {
-        this.game.font.draw(this.game.batch, "Hola mundo", 200, 200);
+       // this.game.font.draw(this.game.batch, "Hola mundo", 200, 200);
     }
 
     //-------------------------------------------INPUT METHODS----------------------------
-
+    public void update(float delta) {
+    }
     @Override
     public boolean keyDown(int keycode) {
         return super.keyDown(keycode);
