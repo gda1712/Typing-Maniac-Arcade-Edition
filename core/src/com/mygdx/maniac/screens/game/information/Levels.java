@@ -69,10 +69,10 @@ public class Levels {
             String palabras[] = new String[20];
 
             for (int i = 0; i < palabras.length; i++) {
-                palabras[i] = this.base.get("equalsTo5").getString((int)(Math.random() * this.base.get("lessThanOrEqualsTo4").size) );
+                palabras[i] = this.base.get("equalsTo5").getString((int)(Math.random() * this.base.get("equalsTo5").size) );
 
             }
-            System.out.println(palabras);
+            System.out.println("Desde lv2");
             return palabras;
         }
 
@@ -80,7 +80,7 @@ public class Levels {
             String palabras[] = new String[20];
 
             for (int i = 0; i < palabras.length; i++) {
-                palabras[i] = this.base.get("equalsTo6").getString((int)(Math.random() * this.base.get("lessThanOrEqualsTo4").size) );
+                palabras[i] = this.base.get("equalsTo6").getString((int)(Math.random() * this.base.get("equalsTo6").size) );
 
             }
             System.out.println(palabras);
