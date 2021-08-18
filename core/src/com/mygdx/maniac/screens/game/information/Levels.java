@@ -1,6 +1,7 @@
 package com.mygdx.maniac.screens.game.information;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
@@ -13,6 +14,7 @@ public class Levels {
     public final static int LEVEL_0 = 0;
     public final static int LEVEL_1 = 1;
     public final static int LEVEL_2 = 2;
+    public final static int ARCADE = 3;
 
     private int departureTime;
 
@@ -42,6 +44,10 @@ public class Levels {
             this.departureTime = 800;
             this.numberOfWords = 40;
         }
+        else if(this.actualLevel == ARCADE) {
+            this.departureTime = 1200;
+            this.numberOfWords = 1000;
+        }
     }
 
     public int getDepartureTime() {
@@ -55,7 +61,7 @@ public class Levels {
     public String []getWords() {
         // Return a word deending on the level
         if(this.actualLevel == LEVEL_0) {
-            String palabras[] = new String[20];
+            String palabras[] = new String[numberOfWords];
 
             for (int i = 0; i < palabras.length; i++) {
                 palabras[i] = this.base.get("lessThanOrEqualsTo4").getString((int)(Math.random() * this.base.get("lessThanOrEqualsTo4").size) );
@@ -66,7 +72,7 @@ public class Levels {
         }
 
         if(this.actualLevel == LEVEL_1) {
-            String palabras[] = new String[30];
+            String palabras[] = new String[numberOfWords];
 
             for (int i = 0; i < palabras.length; i++) {
                 palabras[i] = this.base.get("equalsTo5").getString((int)(Math.random() * this.base.get("equalsTo5").size) );
@@ -77,10 +83,24 @@ public class Levels {
         }
 
         if(this.actualLevel == LEVEL_2) {
-            String palabras[] = new String[40];
+            String palabras[] = new String[numberOfWords];
 
             for (int i = 0; i < palabras.length; i++) {
                 palabras[i] = this.base.get("equalsTo6").getString((int)(Math.random() * this.base.get("equalsTo6").size) );
+
+            }
+            System.out.println(palabras);
+            return palabras;
+        }
+        if(this.actualLevel == ARCADE) {
+            String palabras[] = new String[this.numberOfWords];
+
+            this.base = this.json.parse(Gdx.files.internal("EnglishWords.json"));
+
+            for (int i = 0; i < palabras.length; i++) {
+
+
+                palabras[i] = this.base.get("EnglishWords").getString((int)(Math.random() * this.base.get("EnglishWords").size) );
 
             }
             System.out.println(palabras);

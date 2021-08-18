@@ -56,7 +56,11 @@ public class Word {
         this.sprite.setPosition((this.body.getPosition().x * 100.f) - 50, (this.body.getPosition().y * 100.f) - 20);
         this.sprite.draw(batch);
         font.setColor(Color.FIREBRICK);
-        font.draw(batch, this.word,(this.body.getPosition().x * 100.f) - 12, (this.body.getPosition().y * 100.f) + 5);
+
+        if(this.word.length() < 6)
+            font.draw(batch, this.word,(this.body.getPosition().x * 100.f) - 12, (this.body.getPosition().y * 100.f) + 5);
+        else
+            font.draw(batch, this.word,(this.body.getPosition().x * 100.f) - 20, (this.body.getPosition().y * 100.f) + 5);
 
     }
 

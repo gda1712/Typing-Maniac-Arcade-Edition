@@ -7,6 +7,8 @@ import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
+import com.mygdx.maniac.screens.game.Game;
+import com.mygdx.maniac.screens.game.information.Levels;
 import com.mygdx.maniac.screens.niveles.Niveles;
 
 public class Menu extends Screen{
@@ -18,6 +20,16 @@ public class Menu extends Screen{
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new Niveles(game));
+                //game.datos.setJugadorNuevo("Mariana palaofaf");
+                //System.out.println(game.datos.getNivelActualJ2());
+                System.out.println(game.datos.getNivelDejadoAMedias(game.jugadorOn));
+                //game.setScreen(new Niveles(game));
+            }
+        });
+        this.game.arcade.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.setScreen(new Game(game, Levels.ARCADE));
                 //game.datos.setJugadorNuevo("Mariana palaofaf");
                 //System.out.println(game.datos.getNivelActualJ2());
                 System.out.println(game.datos.getNivelDejadoAMedias(game.jugadorOn));
@@ -78,7 +90,7 @@ public class Menu extends Screen{
 
        // ---- boton 2 ---- //
         this.game.arcade.setSize(160,50);
-        this.game.arcade.setDisabled(true);
+        //this.game.arcade.setDisabled(true);
         this.game.arcade.setPosition(this.game.width-265,this.game.height-250);
         this.game.arcade.draw(this.game.batch,10);
         this.game.stage2.addActor(this.game.arcade);

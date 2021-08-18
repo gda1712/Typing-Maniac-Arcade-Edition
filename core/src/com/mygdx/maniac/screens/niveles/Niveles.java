@@ -23,6 +23,7 @@ public class Niveles extends Screen {
                 game.setScreen(new Game(game, Levels.LEVEL_0));
             }
         });
+
         if(!this.game.nivel2.isDisabled()){
             this.game.nivel2.addListener(new ClickListener() {
                 @Override

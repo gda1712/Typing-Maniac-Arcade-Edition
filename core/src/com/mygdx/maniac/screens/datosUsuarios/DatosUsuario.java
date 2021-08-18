@@ -147,7 +147,6 @@ public class DatosUsuario {
         try {
             Json json = new Json();
 
-            System.out.println("Dentro");
             String elJson="[";
             for (int i=0; i<this.base.size(); i++){
 
