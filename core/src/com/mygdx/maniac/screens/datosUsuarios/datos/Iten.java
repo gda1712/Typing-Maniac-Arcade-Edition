@@ -21,6 +21,13 @@ public class Iten {
         this.datosNivelAMedias="vacio";
         this.palabrasDejadasAMedias="vacio";
     }
+    public Iten(String nombre,int nivelDejadoAMedias, String datosNivelAMedias,String palabrasDejadasAMedias){
+        this.nombre=nombre;
+        this.nivelActual=1;
+        this.nivelDejadoAMedias=nivelDejadoAMedias;
+        this.datosNivelAMedias=datosNivelAMedias;
+        this.palabrasDejadasAMedias=palabrasDejadasAMedias;
+    }
     public Iten(String nombre,int nivelActual,int nivelDejadoAMedias, String datosNivelAMedias,String palabrasDejadasAMedias){
         this.nombre=nombre;
         this.nivelActual=nivelActual;

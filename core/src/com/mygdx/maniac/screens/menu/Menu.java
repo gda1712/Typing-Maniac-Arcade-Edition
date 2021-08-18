@@ -17,11 +17,12 @@ public class Menu extends Screen{
         this.game.play.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new Niveles(game));
-                //game.datos.setJugadorNuevo("Mariana palaofaf");
-                //System.out.println(game.datos.getNivelActualJ2());
-                System.out.println(game.datos.getNivelDejadoAMedias(game.jugadorOn));
                 //game.setScreen(new Niveles(game));
+                //game.datos.setJugadorNuevo("Mariana palaofaf");
+                //game.datos.setNivelAMedias2(game.jugadorOn,2,"hola-guin-jojo","jjijiji-tutu-ppp");
+                //System.out.println(game.datos.getNivelActualJ2());
+                //System.out.println(game.datos.getJsonReader());
+                game.setScreen(new Niveles(game));
             }
         });
 
