@@ -29,12 +29,14 @@ import com.mygdx.maniac.screens.preIngreso.PreIngreso;
 import org.w3c.dom.*;
 
 import javax.swing.plaf.basic.BasicOptionPaneUI;
-import javax.xml.soap.Node;
+/*import javax.xml.soap.Node;
 import javax.xml.soap.SOAPElement;
 import javax.xml.soap.SOAPException;
-import javax.xml.soap.Text;
+import javax.xml.soap.Text;*/
+
 
 public class TypingManiacArcade extends Game {
+
 	public SpriteBatch batch;
 	public Texture tituloI,fondo1,fondo2,fondo3;
 	public BitmapFont opcines,tituloPI;
