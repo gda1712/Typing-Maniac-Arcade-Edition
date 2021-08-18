@@ -75,7 +75,7 @@ public class DatosUsuario {
             if(split==null){
                 return "";
             }else{
-                return split[1].toString();
+                return split[1];
             }
         }else{
             return "Aun no Existe Jugador";
@@ -142,61 +142,129 @@ public class DatosUsuario {
 //        }
 //    }
 
-    public void setNivelAMedias(int numJugador, int nivelDejadoAMedias, ArrayList <String> datosNivelAMedias, ArrayList <String> palabrasDejadasAMedias) {
-
+    public void setNivelAMedias2(int numJugador, int nivelDejadoAMedias, String datosNivelAMedias, String palabrasDejadasAMedias) {
         try {
-            Json json = new Json();
-
             String elJson="[";
+
+<<<<<<< HEAD
+=======
             for (int i=0; i<this.base.size(); i++){
-
-                if(elJson=="["){
-
-                    //elJson=elJson+","+this.base.get(i).toString();
-                    elJson += ",{";
-                    for(int j = 0; j < 5; j++) {
-                        if(i == 2) {
-                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
-                            elJson = elJson + ": " + nivelDejadoAMedias + "\n";
-                        }
-                        if(i == 3) {
-                            System.out.println("Dentro del condifcional");
-                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
-                            for(int k = 0; k < datosNivelAMedias.size(); k++) {
-                                elJson = elJson + "Hols";
-                            }
-                            elJson += "\n";
-                        }
-                        if(i == 4) {
-
-                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
-                            for(int k = 0; k < palabrasDejadasAMedias.size(); k++) {
-                                elJson = elJson + palabrasDejadasAMedias.get(k) + "-";
-                            }
-                            elJson += "\n";
-                        }
-                        else {
-                            elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
-                            elJson = elJson + ": " + this.base.get(i).get(j).toString().split(": ")[1];
-                            elJson += "\n";
-                        }
+                Json json = new Json();
+                Iten iten;
+                String cad;
+                if(numJugador-1==i){
+                    iten = new Iten(this.base.get(i).get(0).toString().split(": ")[1], nivelDejadoAMedias,datosNivelAMedias,palabrasDejadasAMedias);
+                    cad = json.prettyPrint(iten);
+                    if(elJson!="["){
+                        elJson=elJson+","+cad;
+                    }else{
+                        elJson=elJson+cad;
                     }
-                    elJson += "}";
                 }else{
-                    elJson=elJson+this.base.get(i).toString();
+                    //elJson=elJson+this.base.get(i).toString();
+                    iten = new Iten(this.base.get(i).get(0).toString().split(": ")[1],getNivelActual(i), Integer.parseInt(this.base.get(i).get(2).toString().split(": ")[1]), this.base.get(i).get(3).toString().split(": ")[1], this.base.get(i).get(4).toString().split(": ")[1]);
+                    cad = json.prettyPrint(iten);
+                    if(elJson!="["){
+                        elJson=elJson+","+cad;
+                    }else{
+                        elJson=elJson+cad;
+                    }
                 }
+                //System.out.println(cad);
             }
-            if(elJson!="["){
-                elJson=elJson+"]";
-            }else{
-                elJson=elJson+"]";
-            }
+            elJson=elJson+"]";
             FileHandle file= Gdx.files.local("salida.json");
             Gdx.files.local("vacio.json").copyTo(file);
             file.writeString(elJson,true);
             this.base = this.json.parse(Gdx.files.local("salida.json"));
-            //System.out.println("nombre1:"+this.base.get(0).get(0).toString().split(":")[1]);
-            //System.out.println(file);
+        }
+        catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+    }
+    public void setNivelAMedias(int numJugador, int nivelDejadoAMedias, String datosNivelAMedias, String palabrasDejadasAMedias) {
+        try {
+>>>>>>> a4bd388e265e98757bc1a6c7595129f266536577
+            String elJson="[";
+            for (int i=0; i<this.base.size(); i++){
+                if(elJson!="["){
+                    if(numJugador-1==i){
+                        elJson = elJson+",{";
+                        for(int j = 0; j < 5; j++) {
+                            if(i == 2) {
+                                elJson = elJson + " ";
+                                elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                elJson = elJson + ": " + nivelDejadoAMedias + ", ";
+                            }else{
+                                if(i == 3) {
+                                    elJson = elJson + " ";
+                                    elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                    elJson = elJson + ": " + datosNivelAMedias + ", ";
+                                }else{
+                                    if(i == 4) {
+                                        elJson = elJson + " ";
+                                        elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                        elJson = elJson + ": " + palabrasDejadasAMedias + ", ";
+                                    } else {
+                                        elJson = elJson + " ";
+                                        elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                        elJson = elJson + ": " + this.base.get(i).get(j).toString().split(": ")[1];
+                                    }
+                                }
+                            }
+                        }
+                        //elJson=elJson+","+this.base.get(i).toString();
+                        elJson = elJson+"}";
+                    }else{
+                       // elJson=elJson+","+this.base.get(i).toString();
+                        elJson=elJson+this.base.get(i).toString();
+                    }
+                }else {
+                    if (numJugador - 1 == i) {
+                        elJson = elJson + "{";
+                        for (int j = 0; j < 5; j++) {
+                            if (i == 2) {
+                                elJson = elJson + " ";
+                                elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                elJson = elJson + ": " + nivelDejadoAMedias + ", ";
+                            } else {
+                                if (i == 3) {
+                                    elJson = elJson + " ";
+                                    elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                    elJson = elJson + ": " + datosNivelAMedias + ", ";
+                                } else {
+                                    if (i == 4) {
+                                        elJson = elJson + " ";
+                                        elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                        elJson = elJson + ": " + palabrasDejadasAMedias + ", ";
+                                    } else {
+                                        elJson = elJson + " ";
+                                        elJson = elJson + this.base.get(i).get(j).toString().split(": ")[0];
+                                        elJson = elJson + ": " + this.base.get(i).get(j).toString().split(": ")[1];
+                                    }
+                                }
+                            }
+                        }
+                        //elJson=elJson+","+this.base.get(i).toString();
+                        elJson = elJson + "}";
+                    }
+                }
+            }
+            elJson=elJson+"]";
+//            if(elJson!="["){
+//                elJson=elJson+","+cad+"]";
+//            }else{
+//                elJson=elJson+cad+"]";
+//            }
+//            Json json = new Json();
+//            Iten iten = new Iten(elJson);
+//            String cad = json.prettyPrint(iten);
+
+            FileHandle file= Gdx.files.local("salida.json");
+            Gdx.files.local("vacio.json").copyTo(file);
+            file.writeString(elJson,true);
+            this.base = this.json.parse(Gdx.files.local("salida.json"));
+            //Json json = new Json();
         }
         catch (Exception e) {
             System.out.println(e.getMessage());

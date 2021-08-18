@@ -188,7 +188,7 @@ public class Game extends Screen implements ContactListener, ActionListener {
             for(int i = 0; i < this.words.size(); i++) {
                 w.add(this.words.get(i).getWord());
             }
-            this.game.datos.setNivelAMedias(this.game.jugadorOn, this.level.getActualLevel(), datos, w);
+          //  this.game.datos.setNivelAMedias(this.game.jugadorOn, this.level.getActualLevel(), datos, w);
             this.game.setScreen(new Niveles(this.game));
         }
 
