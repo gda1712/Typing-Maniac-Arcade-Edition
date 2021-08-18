@@ -1,6 +1,7 @@
 package com.mygdx.maniac;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -12,6 +13,7 @@ import com.mygdx.maniac.screens.datosUsuarios.DatosUsuario;
 
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.Gdx;
+import com.mygdx.maniac.screens.game.assets.Assets;
 import com.mygdx.maniac.screens.preIngreso.PreIngreso;
 /*import javax.xml.soap.Node;
 import javax.xml.soap.SOAPElement;
@@ -32,6 +34,8 @@ public class TypingManiacArcade extends Game {
 	public TextField nombre;
 	public int jugadorOn;
 
+	public Music pMusica;
+
 	public DatosUsuario datos;
 	//public Label label;
 	//public Checkbox checkbox;
@@ -47,6 +51,10 @@ public class TypingManiacArcade extends Game {
 		this.height= Gdx.graphics.getHeight();
 		this.width= Gdx.graphics.getWidth();
 		this.jugadorOn = 1;
+
+		// Inicializate the music
+		this.pMusica = Assets.getMusic(Assets.MUSIC_3);
+		this.pMusica.play();
 		// ------------------------------------------------- //
 		// ---------------------- PreIngreso -----------------------//
 		this.fondo3 = new Texture("images/background3.jpg");

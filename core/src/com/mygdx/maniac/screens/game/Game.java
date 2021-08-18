@@ -4,11 +4,15 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
 import com.mygdx.maniac.screens.game.animation.Error;
@@ -18,6 +22,7 @@ import com.mygdx.maniac.screens.game.objects.Floor;
 import com.mygdx.maniac.screens.game.objects.Powers;
 import com.mygdx.maniac.screens.game.objects.Word;
 import com.mygdx.maniac.screens.game.objects.Writer;
+import com.mygdx.maniac.screens.niveles.Niveles;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -47,6 +52,9 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
     private int wordToDelete;
 
+    private boolean gameStop;
+    private TextButton saveAndExit;
+
     // This is the number of the printed words (in total game)
     private int wordsOut;
 
@@ -59,9 +67,8 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
     private Sound errorSound;
 
-    private Music music;
-
     private BitmapFont fontWords;
+    private BitmapFont fontPause;
 
     private ArrayList<Error> animationsError;
 
@@ -79,7 +86,22 @@ public class Game extends Screen implements ContactListener, ActionListener {
         this.level = new Levels(nvl);
         this.words = new ArrayList<Word>();
 
+        this.gameStop = false;
         this.fontWords = new BitmapFont();
+        this.fontPause = new BitmapFont();
+        this.fontPause.setColor(Color.BLACK);
+        this.fontPause.getData().setScale(2.5f, 2.5f);
+
+        this.saveAndExit = new TextButton("Guardar y salir", this.game.skin);
+        this.saveAndExit.setPosition(SCREEN_WIDTH / 2, (SCREEN_HEIGHT / 2) - 90);
+
+        this.saveAndExit.addListener(new ClickListener() {
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+
+                game.setScreen(new Niveles(game));
+            }
+        });
 
         // Inicializate the sprite
         this.background = Assets.getSprite(Assets.MAPA_1);
@@ -114,10 +136,6 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
         // Inicializate the contact
         this.world.setContactListener(this);
-
-        // Inicializate the music
-        this.music = Assets.getMusic(Assets.MUSIC_3);
-        this.music.play();
 
         this.errorSound = Assets.getSound(Assets.ERROR);
 
@@ -156,6 +174,32 @@ public class Game extends Screen implements ContactListener, ActionListener {
             this.wordToDelete = DEFAULT_WORLD_TO_DELETE;
             if(this.score >= 100)
                 this.score -= 100;
+        }
+
+        // If the user prees esc pause
+        if(Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+
+            if(this.gameStop == false) {
+                this.world.setGravity(new Vector2(0, 0));
+
+                this.timer.stop();
+                for(int i = 0; i < this.words.size(); i++) {
+                    this.words.get(i).getBody().setLinearVelocity(0, 0);
+                }
+                this.gameStop = true;
+                this.game.pMusica.pause();
+            }
+            else if(this.gameStop == true) {
+                this.world.setGravity(new Vector2(0, DEFAULT_GRAVITY));
+
+                this.timer.start();
+                for(int i = 0; i < this.words.size(); i++) {
+                    this.words.get(i).getBody().setLinearVelocity(0, 0);
+                }
+                this.gameStop = false;
+                this.game.pMusica.play();
+            }
+
         }
 
         if(Gdx.input.isKeyJustPressed(Input.Keys.ENTER)) {
@@ -223,6 +267,13 @@ public class Game extends Screen implements ContactListener, ActionListener {
        // this.game.font.draw(this.game.batch, "Hola mundo", 200, 200);
 
         this.background.draw(this.game.batch);
+
+        // pause
+        if(this.gameStop == true) {
+            this.fontPause.draw(this.game.batch, "PAUSA", SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+            this.saveAndExit.draw(this.game.batch, 1);
+            game.stage2.addActor(this.saveAndExit);
+        }
 
         // Draw the errors
         for(int i = 0; i < this.animationsError.size(); i++) {
