@@ -20,7 +20,7 @@ public class Menu extends Screen{
                 game.setScreen(new Niveles(game));
                 //game.datos.setJugadorNuevo("Mariana palaofaf");
                 //System.out.println(game.datos.getNivelActualJ2());
-                //System.out.println(game.datos.getJsonReader());
+                System.out.println(game.datos.getNivelDejadoAMedias(game.jugadorOn));
                 //game.setScreen(new Niveles(game));
             }
         });

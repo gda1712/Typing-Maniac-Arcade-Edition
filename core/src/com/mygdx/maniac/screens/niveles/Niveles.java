@@ -16,26 +16,29 @@ public class Niveles extends Screen {
         super(game);
 
         botonesDisables();
+
         this.game.nivel1.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 game.setScreen(new Game(game, Levels.LEVEL_0));
             }
         });
-
-        this.game.nivel2.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new Game(game, Levels.LEVEL_1));
-            }
-        });
-
-        this.game.nivel3.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                game.setScreen(new Game(game, Levels.LEVEL_2));
-            }
-        });
+        if(!this.game.nivel2.isDisabled()){
+            this.game.nivel2.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new Game(game, Levels.LEVEL_1));
+                }
+            });
+        }
+        if(!this.game.nivel3.isDisabled()) {
+            this.game.nivel3.addListener(new ClickListener() {
+                @Override
+                public void clicked(InputEvent event, float x, float y) {
+                    game.setScreen(new Game(game, Levels.LEVEL_2));
+                }
+            });
+        }
     }
     public void draw(float delta) {
         //game.stage.clear();
