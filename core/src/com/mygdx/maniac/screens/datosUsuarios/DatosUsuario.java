@@ -2,14 +2,8 @@ package com.mygdx.maniac.screens.datosUsuarios;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.files.FileHandle;
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.utils.*;
-import com.mygdx.maniac.TypingManiacArcade;
-import com.mygdx.maniac.screens.datosUsuarios.datos.Datos;
 import com.mygdx.maniac.screens.datosUsuarios.datos.Iten;
-import com.mygdx.maniac.screens.preIngreso.nuevo.JugadorNuevo;
-
-import java.util.logging.FileHandler;
 
 public class DatosUsuario {
     private JsonReader json;

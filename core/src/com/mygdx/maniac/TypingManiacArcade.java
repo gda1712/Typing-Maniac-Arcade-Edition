@@ -40,7 +40,7 @@ public class TypingManiacArcade extends Game {
 	public void create () {
 		// ------------ configuraciones  generales ventanas ----------- //
 		this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
-		this.tituloI = new Texture("Typing Maniac.png");
+		this.tituloI = new Texture("images/Typing Maniac.png");
 		this.batch = new SpriteBatch();
 
 		this.datos = new DatosUsuario();
@@ -49,7 +49,7 @@ public class TypingManiacArcade extends Game {
 		this.jugadorOn = 1;
 		// ------------------------------------------------- //
 		// ---------------------- PreIngreso -----------------------//
-		this.fondo3 = new Texture("background3.jpg");
+		this.fondo3 = new Texture("images/background3.jpg");
 		this.stage = new Stage();
 		this.font = new BitmapFont();
 		this.tituloPI = new BitmapFont();
@@ -67,7 +67,7 @@ public class TypingManiacArcade extends Game {
 		// ------------------------- Menu --------------------------//
 		this.stage2 = new Stage();
 		this.opciones = new BitmapFont();
-		this.fondo1 = new Texture("background2.jpg");
+		this.fondo1 = new Texture("images/background2.jpg");
 		//this.table = new Table().pad(30);
 		this.play = new TextButton("Modo Campana", skin);
 		this.arcade = new TextButton("Modo Arcade", skin);
@@ -80,7 +80,7 @@ public class TypingManiacArcade extends Game {
 		// --------------------------------------------------------------- //
 		// ------------------------- Niveles ----------------------------- //
 		this.stage3 = new Stage();
-		this.fondo2 = new Texture("background1.jpg");
+		this.fondo2 = new Texture("images/background1.jpg");
 		this.nivel1 = new TextButton("Nivel 1", skin);
 		this.nivel2 = new TextButton("Nivel 2", skin);
 		this.nivel3 = new TextButton("Nivel 3", skin);
