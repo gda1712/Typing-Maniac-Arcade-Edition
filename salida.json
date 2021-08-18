@@ -1,10 +1,11 @@
-[,{nombre: Pepe
+[{
+nombre: Nombre
 nivelActual: 1
-nivelDejadoAMedias: 1
-datosNivelAMedias: vacio
-palabrasDejadasAMedias: vacio
-}{
-nombre: San
+nivelDejadoAMedias: 3
+datosNivelAMedias: 0-8-1
+palabrasDejadasAMedias: demand-back-opportunity
+},{
+nombre: Gabriel
 nivelActual: 1
 nivelDejadoAMedias: 1
 datosNivelAMedias: vacio
