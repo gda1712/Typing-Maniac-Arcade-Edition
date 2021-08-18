@@ -39,7 +39,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
 
     }
 
-    public void update(){}
+    public void update(float delta){}
 
     //-------------------------------------SCREEN METHODS------------------------------
     @Override
@@ -50,7 +50,7 @@ public abstract class Screen extends InputAdapter implements com.badlogic.gdx.Sc
     @Override
     public void render(float delta) {
         /* This method render te screen using delta time*/
-        this.update();
+        this.update(delta);
 
         // Clean screen
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);

@@ -1,8 +1,10 @@
-package com.mygdx.maniac.screens.game;
+package com.mygdx.maniac.screens.game.information;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.utils.Json;
 import com.badlogic.gdx.utils.JsonReader;
 import com.badlogic.gdx.utils.JsonValue;
+import com.badlogic.gdx.utils.JsonWriter;
 
 public class Levels {
 
@@ -27,8 +29,6 @@ public class Levels {
 
         // Get the json
         this.base = this.json.parse(Gdx.files.internal("EnglishWordsOrder.json"));
-
-        this.base.get("lessThanOrEqualsTo4");
 
         if(this.actualLevel == LEVEL_0) {
             this.departureTime = 1200;

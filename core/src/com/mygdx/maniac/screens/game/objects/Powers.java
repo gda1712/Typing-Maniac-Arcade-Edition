@@ -1,8 +1,10 @@
 package com.mygdx.maniac.screens.game.objects;
 
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -11,6 +13,7 @@ import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.mygdx.maniac.screens.Screen;
 import com.mygdx.maniac.screens.game.Game;
+import com.mygdx.maniac.screens.game.assets.Assets;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -28,15 +31,20 @@ public class Powers implements ActionListener {
     private ArrayList<Word> words;
     private Timer timerGame, timerPower;
 
-    private Texture texture;
+    private Sprite sprite;
     private BodyDef bodyDef;
     private Body body;
     private World world;
     private PolygonShape shape;
 
+    private Sound powerSound;
+
 
     public Powers(int power, World world, ArrayList<Word> words, Timer timerGame) {
         // This class manage the powers
+
+        this.sprite = Assets.getSprite(Assets.BARRA_TEXTO_DORADA);
+        this.sprite.setSize(100, 20);
 
         this.power = power;
         this.words = words;
@@ -53,7 +61,7 @@ public class Powers implements ActionListener {
         // Create the body
         this.bodyDef = new BodyDef();
         this.bodyDef.type = BodyDef.BodyType.DynamicBody;
-        this.bodyDef.position.set(Screen.WORD_WIDTH - 1.f, Screen.WORD_HEIGHT);
+        this.bodyDef.position.set(Screen.WORD_WIDTH - 1f, Screen.WORD_HEIGHT);
         this.bodyDef.fixedRotation = true;
 
         this.world = world;
@@ -70,6 +78,10 @@ public class Powers implements ActionListener {
         // Activate hte power
         //Timer
         if(this.power == FROZEN) {
+            // Sound
+            this.powerSound = Assets.getSound(Assets.FREEZE);
+            this.powerSound.play();
+
             this.world.setGravity(new Vector2(0, 0));
 
             for(int i = 0; i < this.words.size(); i++) {
@@ -85,15 +97,19 @@ public class Powers implements ActionListener {
             this.timerGame.stop();
         }
         else if(this.power == BLOW) {
-            this.world.setGravity(new Vector2(0, Game.DEFAULT_GRAVITY * -1));
+            this.powerSound = Assets.getSound(Assets.BLOW);
+            this.powerSound.play();
+
+            this.world.setGravity(new Vector2(0, Game.DEFAULT_GRAVITY * -.5f));
             this.timerPower.start();
         }
     }
 
     public void drawText(BitmapFont font, Batch batch) {
         // Draw the word in the batch
-        //this.shape
-        font.draw(batch, this.powerName,this.body.getPosition().x * 100.f, this.body.getPosition().y * 100.f);
+        this.sprite.setPosition((this.body.getPosition().x * 100.f) - 50, (this.body.getPosition().y * 100.f) - 10);
+        this.sprite.draw(batch);
+        font.draw(batch, this.powerName,(this.body.getPosition().x * 100.f) - 20, (this.body.getPosition().y * 100.f) + 5);
     }
 
     public String getPowerName() {

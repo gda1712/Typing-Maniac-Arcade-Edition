@@ -2,13 +2,18 @@ package com.mygdx.maniac.screens.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.mygdx.maniac.TypingManiacArcade;
 import com.mygdx.maniac.screens.Screen;
+import com.mygdx.maniac.screens.game.animation.Error;
 import com.mygdx.maniac.screens.game.assets.Assets;
+import com.mygdx.maniac.screens.game.information.Levels;
 import com.mygdx.maniac.screens.game.objects.Floor;
 import com.mygdx.maniac.screens.game.objects.Powers;
 import com.mygdx.maniac.screens.game.objects.Word;
@@ -21,7 +26,7 @@ import javax.swing.Timer;
 
 public class Game extends Screen implements ContactListener, ActionListener {
 
-    private Sprite background;
+    private Sprite background, bookStand;
 
     private World world;
     private Box2DDebugRenderer b2dr;
@@ -50,6 +55,16 @@ public class Game extends Screen implements ContactListener, ActionListener {
     private int rightWords;
     private int score;
 
+    private float stateTime;
+
+    private Sound errorSound;
+
+    private Music music;
+
+    private BitmapFont fontWords;
+
+    private ArrayList<Error> animationsError;
+
     private ArrayList <Powers> powers;
 
     public Game(final TypingManiacArcade game) {
@@ -64,11 +79,16 @@ public class Game extends Screen implements ContactListener, ActionListener {
         this.level = new Levels(Levels.LEVEL_0);
         this.words = new ArrayList<Word>();
 
+        this.fontWords = new BitmapFont();
+
         // Inicializate the sprite
-        this.background = Assets.getSprite(Assets.MAPA_ILUMINADO);
+        this.background = Assets.getSprite(Assets.MAPA_1);
         this.background.setPosition(0, 0);
         this.background.setSize(Screen.SCREEN_WIDTH, Screen.SCREEN_HEIGHT);
-        System.out.println(Screen.SCREEN_WIDTH);
+
+        this.bookStand = Assets.getSprite(Assets.ESTANTERIA);
+        this.bookStand.setPosition(this.SCREEN_WIDTH - 170, 182);
+        this.bookStand.setSize( 140, 100);
 
         this.wordsOut = 0;
         this.wordToDelete = DEFAULT_WORLD_TO_DELETE;
@@ -77,6 +97,10 @@ public class Game extends Screen implements ContactListener, ActionListener {
         this.wrongWords = 0;
         this.rightWords = 0;
         this.score = 0;
+        this.animationsError = new ArrayList<Error>();
+
+        // Timer animation
+        this.stateTime = 0.f;
 
         // Inicializate the floor
         this.wordsFloor = new Floor(Floor.WORDS_FLOOR, this.world);
@@ -90,6 +114,12 @@ public class Game extends Screen implements ContactListener, ActionListener {
 
         // Inicializate the contact
         this.world.setContactListener(this);
+
+        // Inicializate the music
+        this.music = Assets.getMusic(Assets.MUSIC_3);
+        this.music.play();
+
+        this.errorSound = Assets.getSound(Assets.ERROR);
 
         this.timer.start();
     }
@@ -106,11 +136,19 @@ public class Game extends Screen implements ContactListener, ActionListener {
         return words;
     }
 
+
     @Override
-    public void update() {
+    public void update(float delta) {
         // This method update the logic game
         world.step(1 / 60.f, 6, 2);
 
+        // Verify the animation error
+        for(int i = 0; i < this.animationsError.size(); i++) {
+            if(this.animationsError.get(i).isAnimationFinished()) {
+                this.animationsError.remove(i);
+            }
+        }
+        this.stateTime += delta;
 
         // Verify and delete words if this collision with the floor
         if(this.wordToDelete != DEFAULT_WORLD_TO_DELETE) {
@@ -145,12 +183,23 @@ public class Game extends Screen implements ContactListener, ActionListener {
             }
 
             if(foundWord == false) {
+                this.errorSound.play();
                 if(this.score >= 50)
                     this.score -= 50;
                 this.writer.cleanWord();
             }
+
+
+        }
+        // Verify the incorrect words
+        if(this.wrongWords > this.level.getNumberOfWords() * 3 / 4) {
+            System.exit(0);
+        }
+        else if(this.wrongWords + this.rightWords == this.level.getNumberOfWords()) {
+            this.game.setScreen(new GameFinished(this.game, this.wrongWords, this.rightWords, this.score));
         }
     }
+
 
     private void removeWord(int index, int typeCollision) {
         // Remove a word in the array
@@ -173,21 +222,30 @@ public class Game extends Screen implements ContactListener, ActionListener {
     public void draw(float delta) {
 
         this.background.draw(this.game.batch);
+
+        // Draw the errors
+        for(int i = 0; i < this.animationsError.size(); i++) {
+            this.animationsError.get(i).draw(this.game.batch, delta);
+        }
+
         // Draw the world
         for(int i = 0; i < this.words.size(); i++) {
-            this.words.get(i).drawText(this.game.font, this.game.batch);
+            this.words.get(i).drawText(this.fontWords, this.game.batch);
         }
 
         // Draw the powers
         for(int i = 0; i < this.powers.size(); i++)
-            this.powers.get(i).drawText(this.game.font, this.game.batch);
+            this.powers.get(i).drawText(this.fontWords, this.game.batch);
+
+        // Draw the bookStand
+        this.bookStand.draw(this.game.batch);
 
         // Draw the game information
-        this.game.font.draw(this.game.batch, "Errors: " + this.wrongWords, 500, 450);
-        this.game.font.draw(this.game.batch, "Rigth Words: " + this.rightWords, 500, 400);
-        this.game.font.draw(this.game.batch, "Score: " + this.score, 500, 350);
+        this.game.font.draw(this.game.batch, "Errors: " + this.wrongWords, 50, 480);
+        this.game.font.draw(this.game.batch, "Rigth Words: " + this.rightWords, 50, 460);
+        this.game.font.draw(this.game.batch, "Score: " + this.score, 50, 440);
 
-        this.writer.drawText(this.game.font, this.game.batch);
+        this.writer.drawText(this.game.batch);
         this.game.batch.setProjectionMatrix(cameraBox2d.combined);
         this.b2dr.render(this.world, this.cameraBox2d.combined);
 
@@ -222,12 +280,17 @@ public class Game extends Screen implements ContactListener, ActionListener {
                 // I verify the collisions
                 if(contact.getFixtureB().getBody() == this.words.get(i).getBody() && contact.getFixtureA().getBody() == this.wordsFloor.getBody()) {
                     this.wordToDelete = i;
+                    this.errorSound.play();
+                    this.animationsError.add(new Error(((int)(contact.getFixtureB().getBody().getPosition().x) * 100) + 40, (int)(contact.getFixtureB().getBody().getPosition().y) * 100));
                 }
-                else if(contact.getFixtureB().getBody() == this.words.get(i).getBody() && contact.getFixtureA().getBody() == this.wordsFloor.getBody()) {
+                else if(contact.getFixtureA().getBody() == this.words.get(i).getBody() && contact.getFixtureB().getBody() == this.wordsFloor.getBody()) {
                     this.wordToDelete = i;
-
+                    this.errorSound.play();
+                    // Add the error in the position collision
+                    this.animationsError.add(new Error(((int)(contact.getFixtureB().getBody().getPosition().x) * 100) + 40, (int)(contact.getFixtureA().getBody().getPosition().y) * 100));
                 }
             }
+            System.out.println(this.animationsError.size());
     }
 
     @Override
