@@ -58,6 +58,7 @@ public class TypingManiacArcade extends Game {
 		this.skin = new Skin(Gdx.files.internal("skin/uiskin.json"));
 		this.tituloI = new Texture("Typing Maniac.png");
 		this.batch = new SpriteBatch();
+<<<<<<< HEAD
 		this.datos = new DatosUsuario();
 		this.height= Gdx.graphics.getHeight();
 		this.width= Gdx.graphics.getWidth();
@@ -103,6 +104,9 @@ public class TypingManiacArcade extends Game {
 		this.setScreen(new PreIngreso(this));
 		//this.setScreen(new Menu(this));
 		//this.setScreen(new Niveles(this));
+=======
+		this.setScreen(new com.mygdx.maniac.screens.game.Game(this));
+>>>>>>> Gabriel
 	}
 
 	@Override

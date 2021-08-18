@@ -19,7 +19,8 @@ public class DesktopLauncher {
 		config.height = DesktopLauncher.SCREEN_HEIGHT;
 		config.resizable = false;
 		config.title = "Typing Maniac Arcade Edition";
-
+		config.backgroundFPS = 60;
+		config.foregroundFPS = 60;
 		// We save the config
 		new LwjglApplication(new TypingManiacArcade(), config);
 	}
